@@ -1,0 +1,6 @@
+export const getAllDetails = async () => {
+    const res = await fetch("http://localhost:5000/details");
+    const data = await res.json();
+    return data;
+
+}
