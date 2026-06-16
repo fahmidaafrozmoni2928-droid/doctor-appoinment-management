@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 
 export default function Card({detail}) {
@@ -7,7 +8,7 @@ export default function Card({detail}) {
 <div className="card bg-base-100 w-full h-full shadow-sm">
   <figure>
     <img
-      src= {image} className="w-full h-80 object-cover"
+      src= {image} className="w-full h-48 object-cover"
       alt="doctor" />
   </figure>
   <div className="card-body">
@@ -16,7 +17,7 @@ export default function Card({detail}) {
     <p>{description}</p>
     <p>Fee: {fee}</p>
     <div className="card-actions justify-end">
-      <button className="btn btn-primary w-full">View Details</button>
+    <Link href={`/all-appoinment/${detail._id}`}><button className="btn btn-primary w-full">View Details</button></Link>  
     </div>
   </div>
 </div>
