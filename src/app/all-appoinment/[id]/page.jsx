@@ -3,12 +3,19 @@ import { IoMdTime } from "react-icons/io";
 import { BsHospital } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { HiOutlineWallet } from "react-icons/hi2";
+import Link from "next/link";
+import Modal from "@/components/Modal";
 const doctorDetailsPage = async({params}) => {
 
     const paramsPromise = await params;
     const {id} = paramsPromise;
     const data = await getDoctorDetailsById(id);
     console.log(data);
+
+
+    
+
+
     return(
         <div className="max-w-4xl mx-auto">
            doctor details
@@ -70,9 +77,14 @@ const doctorDetailsPage = async({params}) => {
         
     </div>
 
+   {/* <div className="card-actions justify-start m-3">
+        <button className="btn bg-blue-500 text-white rounded-xl">Book Appoinment</button>
+      
+    </div>*/}
+
     <div className="card-actions justify-start m-3">
-      <button className="btn bg-blue-500 text-white rounded-xl">Book Appoinment</button>
-    </div>
+    <Modal data={data} />
+</div>
   </div>
 </div>
         </div>
