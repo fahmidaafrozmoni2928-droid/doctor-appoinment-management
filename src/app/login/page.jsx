@@ -22,6 +22,9 @@ const loginPage = () => {
         })
         console.log({data, error});
 
+      //  const { data: tokenData } = await authClient.token()
+      //  console.log(tokenData);
+
         if(data){
             redirect('/')
         }

@@ -5,6 +5,30 @@ export default function BookingModal({ data }) {
     document.getElementById('booking_modal').showModal();
   };
 
+   // const handleBooking = async (e) => {
+   // e.preventDefault();
+
+   // const form = e.target;
+
+   // const bookingData = {
+     // doctorName:form.doctorName.value,
+     // patientName: form.patientName.value,
+    //  appointmentDate: form.date.value,
+     // appoinmentTime: form.time.value,
+     // reason: form.reason.value,
+   // };
+
+  //  await fetch("/api/booking", {
+    //  method: "POST",
+     // headers: {
+       // "Content-Type": "application/json",
+     // },
+     // body: JSON.stringify(bookingData),
+   // });
+ // };
+
+  
+
   return (
     <>
       <button
@@ -24,10 +48,11 @@ export default function BookingModal({ data }) {
             with {data.name}
           </p>
 
-          <form className="space-y-3">
+          <form  className="space-y-3">
             <label className="font-bold">User Email</label>
             <input
               type="email"
+              name="userEmail"
               placeholder="User Email"
               className="input input-bordered w-full rounded-xl"
             />
@@ -36,6 +61,7 @@ export default function BookingModal({ data }) {
 
             <input
               type="text"
+              name="doctorName"
               placeholder="Doctor Name"
               className="input input-bordered w-full rounded-xl"
             />
@@ -43,6 +69,7 @@ export default function BookingModal({ data }) {
              <label className="font-bold">Patient Name</label>
             <input
               type="text"
+              name="patientName"
               placeholder="Patient Name"
               className="input input-bordered w-full rounded-xl"
             />
@@ -51,6 +78,7 @@ export default function BookingModal({ data }) {
              <label className="font-bold">Gender</label>
             <input
               type="text"
+              name="gender"
               placeholder="gender"
               className="input input-bordered w-full rounded-xl"
             />
@@ -58,6 +86,7 @@ export default function BookingModal({ data }) {
 <div>
              <label className="font-bold">Phone</label>
             <input
+            name="phone"
               type="text"
               placeholder="phone"
               className="input input-bordered w-full rounded-xl"
@@ -68,7 +97,8 @@ export default function BookingModal({ data }) {
 
              <label className="font-bold">Date</label>
             <input
-              type="email"
+              type="text"
+            name="date"
               placeholder="date"
               className="input input-bordered w-full rounded-xl"
             />
@@ -77,8 +107,9 @@ export default function BookingModal({ data }) {
 <div>
              <label className="font-bold">Time</label>
             <input
-              type="email"
-              placeholder="Email"
+              type="text"
+              name="time"
+              placeholder="time"
               className="input input-bordered w-full rounded-xl"
             />
 </div>
@@ -87,6 +118,7 @@ export default function BookingModal({ data }) {
              <label className="font-bold">Reason(optional)</label>
             <input
               type="text"
+              name="reason"
                placeholder="Reason"
               className="input input-bordered w-full rounded-xl"
             />

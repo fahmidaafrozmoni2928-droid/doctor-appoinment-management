@@ -5,6 +5,10 @@ const nextConfig = {
   /* config options here */
   reactCompiler: true,
 
+  experimental:{
+    turbo: false,
+  },
+
   images: {
     remotePatterns:[{
       protocol: 'https',
