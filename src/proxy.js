@@ -24,5 +24,5 @@ export async function proxy(request) {
 // export default function proxy(request: NextRequest) { ... }
  
 export const config = {
-  matcher: '/about/:path*',
+  matcher: ['/all-appoinment/:id, /dashboard']
 }
