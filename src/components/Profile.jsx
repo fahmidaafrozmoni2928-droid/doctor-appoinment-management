@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import ProfileUpdateModal from "./ProfileUpdateModal";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
+   const [editData, setEditData] = useState(null);
   const { data: session } = authClient.useSession();
 
   useEffect(() => {
@@ -23,6 +25,28 @@ export default function Profile() {
 
     if (session) loadUser();
   }, [session]);
+
+   const handleUpdateProfile = async (e) => {
+    e.preventDefault();
+
+    const token = session?.session?.token;
+
+    const res = await fetch("http://localhost:5000/profile", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(editData),
+    });
+
+    const data = await res.json();
+
+    if (data.modifiedCount > 0) {
+      setUser(editData);
+      setEditData(null);
+    }
+  };
 
   if (!user) return <p>Loading...</p>;
 
@@ -45,7 +69,15 @@ export default function Profile() {
           {user.email}
         </p>
 
+
+      <button>Update Profile</button>
       </div>
+
+      <ProfileUpdateModal
+        editData={editData}
+        setEditData={setEditData}
+        handleUpdate={handleUpdate}
+      />
     </div>
   );
 }

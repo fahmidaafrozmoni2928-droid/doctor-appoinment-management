@@ -50,7 +50,7 @@ export default function MyBookings() {
 
   
 
-  const handleUpdate = async (e) => {
+  const handleUpdateBooking = async (e) => {
   e.preventDefault();
 
   const token = session?.session?.token;

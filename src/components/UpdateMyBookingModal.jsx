@@ -3,7 +3,7 @@
 export default function UpdateMyBookingModal({
   editData,
   setEditData,
-  handleUpdate,
+  handleUpdateBooking,
 }) {
   if (!editData) return null;
 
@@ -12,7 +12,7 @@ export default function UpdateMyBookingModal({
       <div className="modal-box">
        
 
-        <form onSubmit={handleUpdate} className="space-y-3">
+        <form onSubmit={handleUpdateBooking} className="space-y-3">
 
           <input
             type="text"
