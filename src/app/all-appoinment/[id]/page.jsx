@@ -5,11 +5,19 @@ import { IoLocationOutline } from "react-icons/io5";
 import { HiOutlineWallet } from "react-icons/hi2";
 import Link from "next/link";
 import Modal from "@/components/Modal";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 const doctorDetailsPage = async({params}) => {
 
     const paramsPromise = await params;
     const {id} = paramsPromise;
-    const data = await getDoctorDetailsById(id);
+
+    const { token } = await auth.api.getToken({
+        
+        headers: await headers(), // headers containing the user's session token
+    });
+    
+    const data = await getDoctorDetailsById(id, token);
     console.log(data);
 
 

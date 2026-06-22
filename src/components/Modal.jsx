@@ -5,28 +5,21 @@ export default function BookingModal({ data }) {
     document.getElementById('booking_modal').showModal();
   };
 
-   // const handleBooking = async (e) => {
-   // e.preventDefault();
+   const handleBooking = async (e) => {
+  e.preventDefault();
 
-   // const form = e.target;
+  const formData = new FormData(e.currentTarget);
+  const data = Object.fromEntries(formData.entries());
 
-   // const bookingData = {
-     // doctorName:form.doctorName.value,
-     // patientName: form.patientName.value,
-    //  appointmentDate: form.date.value,
-     // appoinmentTime: form.time.value,
-     // reason: form.reason.value,
-   // };
-
-  //  await fetch("/api/booking", {
-    //  method: "POST",
-     // headers: {
-       // "Content-Type": "application/json",
-     // },
-     // body: JSON.stringify(bookingData),
-   // });
- // };
-
+  await fetch(`http://localhost:5000/booking/${data._id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+};
   
 
   return (
@@ -48,7 +41,7 @@ export default function BookingModal({ data }) {
             with {data.name}
           </p>
 
-          <form  className="space-y-3">
+          <form onSubmit={handleBooking} className="space-y-3">
             <label className="font-bold">User Email</label>
             <input
               type="email"
@@ -132,11 +125,11 @@ export default function BookingModal({ data }) {
             </button>
           </form>
 
-         {/* <div className="modal-action">
+         <div className="modal-action">
             <form method="dialog">
               <button className="btn">Close</button>
             </form>
-          </div>*/}
+          </div>
         </div>
       </dialog>
     </>

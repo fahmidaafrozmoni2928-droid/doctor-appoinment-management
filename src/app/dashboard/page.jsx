@@ -1,29 +1,39 @@
-//import Bookings from "@/components/Bookings";
-//import Profile from "@/components/Profile";
-//import React, { useState } from "react";
 
-const dashboardPage = () => {
-  //  const [activeTab, setActiveTab] = useState("bookings")
+'use client';
 
-   // {
-       // activeTab === "bookings" && <Bookings></Bookings>
-  //  }
+import { useState } from "react";
+import MyBookings from "@/components/MyBookings";
+import Profile from "@/components/Profile";
 
-   // {
-       // activeTab === "profile" && <Profile></Profile>
-   // }
-    return(
-        <div>
-         <h1 className="font-bold text-xl">Dashboard</h1>
+export default function DashboardPage() {
+  const [activeTab, setActiveTab] = useState("bookings");
 
-       {/* name of each tab group should be unique */}
-<div className="tabs tabs-box">
-  <input type="radio" name="my_tabs_1" className="tab " aria-label="My Bookings"  />
-  <input type="radio" name="my_tabs_1" className="tab" aria-label="My Profile"  />
-  
-</div>
-        </div>
+  return (
+    <div className="max-w-7xl mx-auto">
+      <h1 className="font-bold text-xl">Dashboard</h1>
 
-    )
+      {/* Tabs */}
+      <div className="tabs tabs-box">
+        <button
+          className="tab"
+          onClick={() => setActiveTab("bookings")}
+        >
+          My Bookings
+        </button>
+
+        <button
+          className="tab"
+          onClick={() => setActiveTab("profile")}
+        >
+          My Profile
+        </button>
+      </div>
+
+      {/* Content */}
+      <div className="mt-6">
+        {activeTab === "bookings" && <MyBookings />}
+        {activeTab === "profile" && <Profile />}
+      </div>
+    </div>
+  );
 }
-export default dashboardPage;

@@ -5,9 +5,9 @@ const nextConfig = {
   /* config options here */
   reactCompiler: true,
 
-  experimental:{
-    turbo: false,
-  },
+ // experimental:{
+   // turbo: false,
+ // },
 
   images: {
     remotePatterns:[{
