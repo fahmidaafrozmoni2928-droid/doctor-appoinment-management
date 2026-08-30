@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Card from "@/components/Card";
 import { getAllDetails } from "@/lib/details/data";
 
-
+export const dynamic = "force-dynamic";
 export default function AllAppointmentPage() {
   const [detailsData, setDetailsData] = useState([]);
   const [search, setSearch] = useState("");

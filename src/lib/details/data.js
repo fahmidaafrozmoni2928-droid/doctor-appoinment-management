@@ -7,7 +7,8 @@
 
 export const getAllDetails = async (search = "") => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/details?search=${search}`, {
-        cache: 'no-store'
+        cache: 'no-store',
+        credentials: "include"
     });
    // const data = await res.json();
     return res.json();
