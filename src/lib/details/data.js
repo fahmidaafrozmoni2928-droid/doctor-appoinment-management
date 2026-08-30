@@ -1,19 +1,12 @@
 
 
 
-//export const getAllDetails = async () => {
-  //  const res = await fetch("http://localhost:5000/details", {
-      //  cache: 'no-store'
-  //  });
-   // const data = await res.json();
-   // return data;
-
-//};       
+      
 
 
 
 export const getAllDetails = async (search = "") => {
-    const res = await fetch(`http://localhost:5000/details?search=${search}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/details?search=${search}`, {
         cache: 'no-store'
     });
    // const data = await res.json();
@@ -25,7 +18,7 @@ export const getAllDetails = async (search = "") => {
 
 
 export const getDoctorDetailsById = async(id, token) => {
-        const res = await fetch(`http://localhost:5000/details/${id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/details/${id}`, {
 
             cache: 'no-store',
 headers: {

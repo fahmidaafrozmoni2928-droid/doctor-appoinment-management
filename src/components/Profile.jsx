@@ -27,7 +27,7 @@ export default function Profile() {
 
         console.log("PROFILE TOKEN:", token);
 
-        const res = await fetch("http://localhost:5000/profile", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/profile`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -76,7 +76,7 @@ export default function Profile() {
     console.log("UPDATE TOKEN:", token);
     console.log("EDIT DATA:", editData);
 
-    const res = await fetch("http://localhost:5000/profile", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/profile`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,

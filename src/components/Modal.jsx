@@ -37,7 +37,7 @@ export default function BookingModal({ data }) {
       console.log("BOOKING DATA =", bookingData);
 
       const res = await fetch(
-        `http://localhost:5000/booking/${data._id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${data._id}`,
         {
           method: "POST",
           headers: {

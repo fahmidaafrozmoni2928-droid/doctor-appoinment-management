@@ -24,7 +24,7 @@ export default function MyBookings() {
       console.log("TOKEN:", token);
 
       const res = await fetch(
-        "http://localhost:5000/my-bookings",
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/my-bookings`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -66,7 +66,7 @@ export default function MyBookings() {
 
     const token = data.token;
 
-    const res = await fetch(`http://localhost:5000/booking/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -112,7 +112,7 @@ const handleUpdateBooking = async (e) => {
    
 
     const res = await fetch(
-      `http://localhost:5000/booking/${editData._id}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${editData._id}`,
       {
         method: "PATCH",
         headers: {
