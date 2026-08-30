@@ -22,7 +22,7 @@ export async function proxy(request) {
 
 export const config = {
   matcher: [
-    "/all-appoinment/:path*",
+    "/all-appoinment/:id",
     "/dashboard/:path*",
   ],
 };
