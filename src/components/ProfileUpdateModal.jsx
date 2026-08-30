@@ -1,70 +1,71 @@
 
-'use client';
+"use client";
 
 export default function ProfileUpdateModal({
   editData,
   setEditData,
-  handleUpdateProfile,
+  handleUpdate,
 }) {
   if (!editData) return null;
 
   return (
     <dialog open className="modal">
-          <div className="modal-box">
+      <div className="modal-box">
 
-            <h3 className="font-bold text-lg mb-3">
-              Update Profile
-            </h3>
+        <h3 className="font-bold text-lg mb-3">
+          Update Profile
+        </h3>
 
-            <form onSubmit={handleUpdateProfile} className="space-y-3">
+        <form onSubmit={handleUpdate} className="space-y-3">
 
-              <input
-                type="text"
-                value={editData.name}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    name: e.target.value,
-                  })
-                }
-                className="input input-bordered w-full"
-                placeholder="Name"
-              />
+          <input
+            type="text"
+            value={editData.name || ""}
+            onChange={(e) =>
+              setEditData({
+                ...editData,
+                name: e.target.value,
+              })
+            }
+            className="input input-bordered w-full"
+            placeholder="Name"
+          />
 
-              <input
-                type="text"
-                value={editData.image}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    image: e.target.value,
-                  })
-                }
-                className="input input-bordered w-full"
-                placeholder="Image URL"
-              />
+          <input
+            type="text"
+            value={editData.image || ""}
+            onChange={(e) =>
+              setEditData({
+                ...editData,
+                image: e.target.value,
+              })
+            }
+            className="input input-bordered w-full"
+            placeholder="Image URL"
+          />
 
-              <div className="flex gap-2">
-                <button className="btn btn-success w-full">
-                  Save
-                </button>
+          <div className="flex gap-2">
 
-                <button
-                  type="button"
-                  onClick={() => setEditData(null)}
-                  className="btn"
-                >
-                  Cancel
-                </button>
-              </div>
+            <button
+              type="submit"
+              className="btn btn-success w-full"
+            >
+              Save
+            </button>
 
-            </form>
+            <button
+              type="button"
+              onClick={() => setEditData(null)}
+              className="btn"
+            >
+              Cancel
+            </button>
 
           </div>
-        </dialog>
+
+        </form>
+
+      </div>
+    </dialog>
   );
 }
-
-
-
-

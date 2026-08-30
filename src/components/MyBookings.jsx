@@ -9,87 +9,158 @@ export default function MyBookings() {
    const [editData, setEditData] = useState(null);
   const { data: session } = authClient.useSession();
 
-  useEffect(() => {
-    const loadBookings = async () => {
-      try {
-        const token = session?.session?.token;
+ useEffect(() => {
+  const loadBookings = async () => {
+    try {
+      const { data, error } = await authClient.token();
 
-        const res = await fetch(
-          "http://localhost:5000/my-bookings",
-          {
-            headers: {
-              authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        const data = await res.json();
-        setBookings(data);
-      } catch (error) {
-        console.log(error);
+      if (error || !data?.token) {
+        console.log("TOKEN ERROR:", error);
+        return;
       }
-    };
 
-    if (session) {
-      loadBookings();
+      const token = data.token;
+
+      console.log("TOKEN:", token);
+
+      const res = await fetch(
+        "http://localhost:5000/my-bookings",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const bookingsData = await res.json();
+
+      console.log("BOOKINGS:", bookingsData);
+
+      if (!res.ok) {
+        console.log(bookingsData);
+        return;
+      }
+
+      setBookings(bookingsData);
+
+    } catch (error) {
+      console.log(error);
     }
-  }, [session]);
+  };
 
-   const handleDelete = async (id) => {
-    const token = session?.session?.token;
+  if (session) {
+    loadBookings();
+  }
+}, [session]);
 
-    await fetch(`http://localhost:5000/booking/${id}`, {
+
+  const handleDelete = async (id) => {
+  try {
+    const { data, error } = await authClient.token();
+
+    if (error || !data?.token) {
+      console.log("TOKEN ERROR:", error);
+      return;
+    }
+
+    const token = data.token;
+
+    const res = await fetch(`http://localhost:5000/booking/${id}`, {
       method: "DELETE",
       headers: {
-        authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     });
 
-    setBookings(bookings.filter((b) => b._id !== id));
-  };
+    const result = await res.json();
 
-  
+    console.log("DELETE RESULT:", result);
 
-  const handleUpdateBooking = async (e) => {
-  e.preventDefault();
-
-  const token = session?.session?.token;
-
-  const res = await fetch(
-    `http://localhost:5000/booking/${editData._id}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(editData),
+    if (!res.ok) {
+      console.log("DELETE ERROR:", result);
+      return;
     }
-  );
 
-  const result = await res.json();
+    if (result.deletedCount > 0) {
+      alert("Booking Deleted Successfully");
 
-  if (result.modifiedCount > 0) {
-    alert("Booking Updated Successfully");
-
-    setBookings(
-      bookings.map((booking) =>
-        booking._id === editData._id
-          ? editData
-          : booking
-      )
-    );
-
-    setEditData(null);
+      setBookings((prevBookings) =>
+        prevBookings.filter((booking) => booking._id !== id)
+      );
+    }
+  } catch (error) {
+    console.log("DELETE ERROR:", error);
   }
 };
+  
+const handleUpdateBooking = async (e) => {
+  e.preventDefault();
+
+  try {
+    const { data: tokenData, error } = await authClient.token();
+
+    if (error || !tokenData?.token) {
+      console.log("TOKEN ERROR:", error);
+      alert("Authentication failed. Please login again.");
+      return;
+    }
+
+    const token = tokenData.token;
+
+   
+
+    const res = await fetch(
+      `http://localhost:5000/booking/${editData._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editData),
+      }
+    );
+
+    const result = await res.json();
+
+    console.log("UPDATE RESULT =", result);
+
+    if (!res.ok) {
+      console.log("UPDATE ERROR =", result);
+      alert(result.message || "Update failed");
+      return;
+    }
+
+    if (result.modifiedCount > 0) {
+      alert("Booking Updated Successfully");
+
+      setBookings((prev) =>
+        prev.map((booking) =>
+          booking._id === editData._id
+            ? editData
+            : booking
+        )
+      );
+
+      setEditData(null);
+    } else {
+      alert("No changes were made.");
+    }
+
+  } catch (error) {
+    console.log("UPDATE ERROR =", error);
+  }
+};
+ 
 
 
   return (
     <div className="space-y-4">
-      {bookings.length === 0 ? (
-        <p>No Bookings Found</p>
-      ) : (
+      {Array.isArray(bookings) && bookings.length > 0 ? 
+        
+       (
         bookings.map((booking) => (
           <div
             key={booking._id}
@@ -126,13 +197,13 @@ export default function MyBookings() {
           </div>
          
         ))
-      )}
+      ) : (<p>No Bookings Found</p>)}
 
 
  <UpdateMyBookingModal
   editData={editData}
   setEditData={setEditData}
-  handleUpdate={handleUpdate}
+  handleUpdateBooking={handleUpdateBooking}
 />
 
     </div>

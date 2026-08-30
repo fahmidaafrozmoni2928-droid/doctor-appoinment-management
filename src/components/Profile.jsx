@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
@@ -6,60 +6,137 @@ import ProfileUpdateModal from "./ProfileUpdateModal";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
-   const [editData, setEditData] = useState(null);
+  const [editData, setEditData] = useState(null);
+
   const { data: session } = authClient.useSession();
 
+  // =========================
+  // LOAD PROFILE
+  // =========================
   useEffect(() => {
-    const loadUser = async () => {
-      const token = session?.session?.token;
+    const loadProfile = async () => {
+      try {
+        const { data, error } = await authClient.token();
 
-      const res = await fetch("http://localhost:5000/me", {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
+        if (error || !data?.token) {
+          console.log("TOKEN ERROR:", error);
+          return;
+        }
 
-      const data = await res.json();
-      setUser(data);
+        const token = data.token;
+
+        console.log("PROFILE TOKEN:", token);
+
+        const res = await fetch("http://localhost:5000/profile", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        const profileData = await res.json();
+
+        console.log("PROFILE DATA:", profileData);
+
+        if (!res.ok) {
+          console.log("PROFILE ERROR:", profileData);
+          return;
+        }
+
+        setUser(profileData);
+
+      } catch (error) {
+        console.log("PROFILE FETCH ERROR:", error);
+      }
     };
 
-    if (session) loadUser();
+    if (session) {
+      loadProfile();
+    }
   }, [session]);
 
-   const handleUpdateProfile = async (e) => {
-    e.preventDefault();
 
-    const token = session?.session?.token;
+  // =========================
+  // UPDATE PROFILE
+  // =========================
+ const handleUpdateProfile = async (e) => {
+  e.preventDefault();
+
+  try {
+    const { data, error } = await authClient.token();
+
+    if (error || !data?.token) {
+      console.log("TOKEN ERROR:", error);
+      return;
+    }
+
+    const token = data.token;
+
+    console.log("UPDATE TOKEN:", token);
+    console.log("EDIT DATA:", editData);
 
     const res = await fetch("http://localhost:5000/profile", {
       method: "PATCH",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(editData),
+      body: JSON.stringify({
+        name: editData.name,
+        image: editData.image,
+      }),
     });
 
-    const data = await res.json();
+    const result = await res.json();
 
-    if (data.modifiedCount > 0) {
-      setUser(editData);
-      setEditData(null);
+    console.log("UPDATE RESULT:", result);
+
+    if (!res.ok) {
+      alert(result.message);
+      return;
     }
-  };
 
-  if (!user) return <p>Loading...</p>;
+    alert("Profile Updated Successfully");
 
+    // UI update
+    setUser((prev) => ({
+      ...prev,
+      name: editData.name,
+      image: editData.image,
+    }));
+
+    setEditData(null);
+
+  } catch (error) {
+    console.log("UPDATE PROFILE ERROR:", error);
+  }
+};
+
+
+  // =========================
+  // LOADING
+  // =========================
+  if (!user) {
+    return <p>Loading...</p>;
+  }
+
+
+  // =========================
+  // UI
+  // =========================
   return (
     <div className="card bg-base-100 shadow-md p-6 max-w-md mx-auto">
-      
+
       <div className="flex flex-col items-center gap-3">
-        
-        <img
-          src={user.image || "/avatar.png"}
-          className="w-24 h-24 rounded-full object-cover"
-          alt="profile"
-        />
+
+        {user.image && (
+          <img
+            src={user.image}
+            alt={user.name}
+            className="w-24 h-24 rounded-full object-cover"
+          />
+        )}
 
         <h2 className="text-xl font-bold">
           {user.name}
@@ -69,15 +146,21 @@ export default function Profile() {
           {user.email}
         </p>
 
+        <button
+          onClick={() => setEditData(user)}
+          className="btn btn-primary"
+        >
+          Update Profile
+        </button>
 
-      <button>Update Profile</button>
       </div>
 
       <ProfileUpdateModal
         editData={editData}
         setEditData={setEditData}
-        handleUpdate={handleUpdate}
+        handleUpdate={handleUpdateProfile}
       />
+
     </div>
   );
 }

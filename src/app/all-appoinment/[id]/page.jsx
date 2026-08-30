@@ -1,3 +1,4 @@
+
 import { getDoctorDetailsById } from "@/lib/details/data";
 import { IoMdTime } from "react-icons/io";
 import { BsHospital } from "react-icons/bs";
@@ -7,24 +8,30 @@ import Link from "next/link";
 import Modal from "@/components/Modal";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+
+
 const doctorDetailsPage = async({params}) => {
 
-    const paramsPromise = await params;
+    try{
+ const paramsPromise = await params;
     const {id} = paramsPromise;
 
-    const { token } = await auth.api.getToken({
+     const sessionToken = await auth.api.getToken({
         
         headers: await headers(), // headers containing the user's session token
     });
-    
-    const data = await getDoctorDetailsById(id, token);
+
+    if(!sessionToken || !sessionToken.token){
+       // redirect("/login");
+    }
+
+    const token = sessionToken.token;
+const data = await getDoctorDetailsById(id, token);
     console.log(data);
 
 
-    
-
-
-    return(
+ return(
         <div className="max-w-4xl mx-auto">
            doctor details
            <div className="card card-side bg-base-100 shadow-sm">
@@ -96,6 +103,14 @@ const doctorDetailsPage = async({params}) => {
   </div>
 </div>
         </div>
-    )
+    );
+
+    }
+
+    catch(error){
+        console.error("Doctor details page is error:", error);
+       // redirect("/login");
+    }
+   
 }
 export default doctorDetailsPage;

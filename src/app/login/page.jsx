@@ -1,17 +1,18 @@
 'use client';
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
 
 const loginPage = () => {
+    const router = useRouter();
 
     const onSubmit = async(e) => {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
-        const user = Object.fromEntries(formData);
+        const user = Object.fromEntries(formData.entries());
 
         console.log(user);
 
@@ -26,7 +27,7 @@ const loginPage = () => {
       //  console.log(tokenData);
 
         if(data){
-            redirect('/')
+            router.push("/")
         }
 
         if(error) {

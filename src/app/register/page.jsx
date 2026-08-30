@@ -1,17 +1,18 @@
 'use client';
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
 
 const registerPage = () => {
+    const router = useRouter();
 
     const onSubmit = async(e) => {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
-        const user = Object.fromEntries(formData);
+        const user = Object.fromEntries(formData.entries());
 
         console.log(user);
 
@@ -24,7 +25,7 @@ const registerPage = () => {
         console.log({data, error});
 
         if(data){
-            redirect('/')
+            router.push("/")
         }
 
         if(error) {
@@ -55,10 +56,10 @@ const registerPage = () => {
   <input type="email" name="email" className="input" placeholder="Email" />
 
    <label className="font-semibold">Photo URL</label>
-  <input type="text" name="photo url" className="input" placeholder="Photo URL" />
+  <input type="text" name="image" className="input" placeholder="Photo URL" />
 
   <label className="font-semibold">Password</label>
-  <input type="password" name="password" className="input" placeholder="Password" />
+  <input type="password" name="password" minLength={6} pattern="(?=.*[a-z])(?=.*[A-Z].{6,}" title="Password must contain at least 6 characters, 1 uppercase and 1 lowercase letter" className="input" placeholder="Password" />
 
   <button type="submit" className="btn bg-blue-400 text-white mt-4">Register</button>
 

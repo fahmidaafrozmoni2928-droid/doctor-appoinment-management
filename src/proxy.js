@@ -1,28 +1,32 @@
-import { headers } from 'next/headers';
-import { auth } from './lib/auth';
-import { NextResponse } from 'next/server';
 
 
- 
-// This function can be marked `async` if using `await` inside
+
+
+import { NextResponse } from "next/server";
+import { auth } from "./lib/auth";
+import { headers } from "next/headers";
+
 export async function proxy(request) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
-
- const session = await auth.api.getSession({
-    
-    headers: await headers(), // headers containing the user's session token
-});
-  if(!session && !session?.user) {
-    console.log(request.url, 'from proxy');
-
-    return NextResponse.redirect(new URL('/', request.url));
+  // Login না থাকলে home/login এ পাঠাবে
+  if (!session?.user) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
-  
+
+  // Login থাকলে যেতে দেবে
+  return NextResponse.next();
 }
- 
-// Alternatively, you can use a default export:
-// export default function proxy(request: NextRequest) { ... }
- 
+
 export const config = {
-  matcher: ['/all-appoinment/:id, /dashboard']
-}
+  matcher: [
+    "/all-appoinment/:path*",
+    "/dashboard/:path*",
+  ],
+};
+
+
+
+

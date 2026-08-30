@@ -16,7 +16,7 @@ export default function UpdateMyBookingModal({
 
           <input
             type="text"
-            value={editData.patientName}
+            value={editData.patientName || ""}
             onChange={(e) =>
               setEditData({
                 ...editData,
