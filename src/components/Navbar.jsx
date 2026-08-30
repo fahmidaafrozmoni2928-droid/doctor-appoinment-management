@@ -2,10 +2,12 @@
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 
 const Navber = () => {
+  const router = useRouter();
 
    const { 
         data: session, 
@@ -17,6 +19,8 @@ const Navber = () => {
 
     const handleSignOut = async() => {
 await authClient.signOut();
+
+router.push("/")
     }
 
     return(
@@ -60,7 +64,7 @@ await authClient.signOut();
     }
     
    </li>
- <li> <Link href={'/logout'}><button onClick={handleSignOut} className="btn rounded-xl bg-red-400 text-white">Logout</button></Link></li>
+ <li><button onClick={handleSignOut} className="btn rounded-xl bg-red-400 text-white">Logout</button></li>
 
       </>  : <>
       <li> <Link href={'/login'}><button className="btn rounded-xl bg-blue-400 text-white">Login</button></Link></li>
