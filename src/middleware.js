@@ -1,15 +1,11 @@
 import { NextResponse } from "next/server";
-import { auth } from "./lib/auth"; 
-import { headers } from "next/headers";
-
 
 export async function middleware(request) {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
+    
+    const sessionToken = request.cookies.get("better-auth.session_token")?.value;
 
     
-    if (!session?.user) {
+    if (!sessionToken) {
         return NextResponse.redirect(new URL("/login", request.url));
     }
 
@@ -19,12 +15,8 @@ export async function middleware(request) {
 
 export const config = {
     matcher: [
-        "/all-appointment/:id*", 
+        "/all-appointment/:id*",
         "/dashboard/:path*",
     ],
 };
-
-
-
-
 
