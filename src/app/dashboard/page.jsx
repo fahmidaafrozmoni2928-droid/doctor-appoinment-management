@@ -1,39 +1,57 @@
 
-'use client';
+//'use client';
 
-import { useState } from "react";
-import MyBookings from "@/components/MyBookings";
-import Profile from "@/components/Profile";
+// import { useState } from "react";
+// import MyBookings from "@/components/MyBookings";
+// import Profile from "@/components/Profile";
+
+// export default function DashboardPage() {
+//   const [activeTab, setActiveTab] = useState("bookings");
+
+//   return (
+//     <div className="max-w-7xl mx-auto">
+//       <h1 className="font-bold text-xl">Dashboard</h1>
+
+//       {/* Tabs */}
+//       <div className="tabs tabs-box">
+//         <button
+//           className="tab"
+//           onClick={() => setActiveTab("bookings")}
+//         >
+//           My Bookings
+//         </button>
+
+//         <button
+//           className="tab"
+//           onClick={() => setActiveTab("profile")}
+//         >
+//           My Profile
+//         </button>
+//       </div>
+
+//       {/* Content */}
+//       <div className="mt-6">
+//         {activeTab === "bookings" && <MyBookings />}
+//         {activeTab === "profile" && <Profile />}
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
+"use client";
 
 export default function DashboardPage() {
-  const [activeTab, setActiveTab] = useState("bookings");
-
   return (
-    <div className="max-w-7xl mx-auto">
-      <h1 className="font-bold text-xl">Dashboard</h1>
+    <div className="p-10">
+      <h1 className="text-4xl font-bold">
+        Dashboard Test
+      </h1>
 
-      {/* Tabs */}
-      <div className="tabs tabs-box">
-        <button
-          className="tab"
-          onClick={() => setActiveTab("bookings")}
-        >
-          My Bookings
-        </button>
-
-        <button
-          className="tab"
-          onClick={() => setActiveTab("profile")}
-        >
-          My Profile
-        </button>
-      </div>
-
-      {/* Content */}
-      <div className="mt-6">
-        {activeTab === "bookings" && <MyBookings />}
-        {activeTab === "profile" && <Profile />}
-      </div>
+      <p className="mt-4">
+        Dashboard page is working.
+      </p>
     </div>
   );
 }
