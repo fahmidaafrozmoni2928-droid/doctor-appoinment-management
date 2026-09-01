@@ -41,7 +41,7 @@ router.push("/")
   <ul className="flex items-center gap-4">
     {
       user ? <>
-       <li> <Link href={'/profile'}><button className="btn rounded-xl bg-blue-400 text-white">Profile</button></Link></li>
+       <li> <Link href="/dashboard?tab=profile"><button className="btn rounded-xl bg-blue-400 text-white">Profile</button></Link></li>
    <li>
     {
       user?.image ? (

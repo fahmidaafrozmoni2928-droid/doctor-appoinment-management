@@ -25,7 +25,7 @@ const registerPage = () => {
         console.log({data, error});
 
         if(data){
-            router.push("/dashboard")
+            router.push("/")
         }
 
         if(error) {
