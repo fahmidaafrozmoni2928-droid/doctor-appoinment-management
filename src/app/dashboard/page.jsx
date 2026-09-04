@@ -5,7 +5,17 @@
  import MyBookings from "@/components/MyBookings";
  import Profile from "@/components/Profile";
 
- export default function DashboardPage() {
+ export default async function DashboardPage() {
+
+   const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  const user = session?.user;
+
+  if (!user) {
+    redirect("/");
+  }
    const [activeTab, setActiveTab] = useState("bookings");
 
    return (
