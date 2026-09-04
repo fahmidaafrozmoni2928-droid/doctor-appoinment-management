@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
 
-export async function middleware(request) {
-  const session = await auth.api.getSession({
-    headers: request.headers,
-  });
+export function middleware(request) {
+  const sessionCookie =
+    request.cookies.get("better-auth.session_token") ||
+    request.cookies.get("__Secure-better-auth.session_token");
 
-  if (!session) {
+  if (!sessionCookie) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
