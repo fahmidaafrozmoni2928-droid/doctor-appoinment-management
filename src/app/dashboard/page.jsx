@@ -5,6 +5,8 @@
  import MyBookings from "@/components/MyBookings";
  import Profile from "@/components/Profile";
 import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
  export default async function DashboardPage() {
 
