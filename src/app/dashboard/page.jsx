@@ -5,7 +5,7 @@
  import MyBookings from "@/components/MyBookings";
  import Profile from "@/components/Profile";
 
- export default async function DashboardPage() {
+ export default function DashboardPage() {
 
   
    const [activeTab, setActiveTab] = useState("bookings");
