@@ -1,36 +1,130 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🩺 Doctor Appointment Management
 
-## Getting Started
+A modern doctor appointment management web application built with **Next.js**. This project provides a simple and user-friendly platform for managing doctor appointments with authentication and a responsive interface.
 
-First, run the development server:
+## 🌐 Live Website
+
+Doctor Appointment Management: https://doctor-appoinment-management-delta.vercel.app/
+
+## 📌 Project Overview
+
+The **Doctor Appointment Management** project is a healthcare-focused web application designed to make doctor appointment management easier and more organized.
+
+The application is built with **Next.js** and uses **Better Auth** for authentication and **MongoDB** for database management.
+
+## ✨ Features
+
+* 🔐 User registration and login
+* 👤 User authentication with Better Auth
+* 🩺 Doctor appointment management
+* 📅 Appointment-related functionality
+* 🗃️ MongoDB database integration
+* 📱 Responsive user interface
+* 🎨 Modern UI with Tailwind CSS and DaisyUI
+* 🧩 Reusable React components
+* ⚡ Fast and optimized Next.js application
+* 🔔 User-friendly interface and interactive elements
+
+## 🛠️ Technologies Used
+
+### Frontend
+
+* Next.js
+* Tailwind CSS
+* DaisyUI
+* React Icons
+
+### Backend & Database
+
+* Next.js
+* Better Auth
+* MongoDB
+* Better Auth MongoDB Adapter
+
+
+## 📦 Dependencies
+
+Main packages used in this project include:
+
+* `next`
+* `react`
+* `better-auth`
+* `@better-auth/mongo-adapter`
+* `mongodb`
+* `@heroui/react`
+* `@heroui/styles`
+* `react-icons`
+* `tailwindcss`
+* `daisyui`
+
+## 🚀 Getting Started
+
+Follow these steps to run the project locally.
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/fahmidaafrozmoni2928-droid/doctor-appoinment-management.git
+```
+
+### 2. Go to the Project Directory
+
+```bash
+cd doctor-appoinment-management
+```
+
+### 3. Install Dependencies
+
+```bash
+npm install
+```
+
+
+### 5. Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Now open:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project Structure
 
-## Learn More
+```text
+doctor-appoinment-management/
+│
+├── public/
+│
+├── src/
+│   ├── app/
+│   ├── components/
+│   ├── lib/
+│   └── ...
+│
+├── .gitignore
+├── eslint.config.mjs
+├── jsconfig.json
+├── next.config.mjs
+├── package.json
+├── package-lock.json
+├── postcss.config.mjs
+└── README.md
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🔐 Authentication
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Authentication is implemented using **Better Auth** with MongoDB integration.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The project uses:
 
-## Deploy on Vercel
+* Email/password authentication
+* Secure authentication sessions
+* MongoDB as the authentication database
+* Better Auth MongoDB adapter
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
