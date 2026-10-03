@@ -47,12 +47,9 @@ The application is built with **Next.js** and uses **Better Auth** for authentic
 Main packages used in this project include:
 
 * `next`
-* `react`
 * `better-auth`
 * `@better-auth/mongo-adapter`
 * `mongodb`
-* `@heroui/react`
-* `@heroui/styles`
 * `react-icons`
 * `tailwindcss`
 * `daisyui`
